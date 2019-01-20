@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% block home_active %}active{% endblock %}
+{% block title %}Home{% endblock %}
+{% load home_tags %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+    <div class="row mt-2">
+        <div class="col">
+            <h1>Howdy!</h1>
+            <p class="lead">Welcome home.</p>
+            <p>You need to do the following:</p>
+            <ul>
+                <li>python manage.py createsuperuser</li>
+                <li>python manage.py loaddata site-data.json</li>
+                <li>Create an app at twitch <a href="https://dev.twitch.tv/dashboard" target="_blank">developer site</a>.</li>
+                <li>Login to django <a href="{% url 'admin:index' %}">admin site</a>.</li>
+                <li>Configure the Twitch settings in the Oauth section.</li>
+                <li>Log out then <a href="{% url 'oauth:login' %}" class="text-info">log in with Twitch</a>.</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

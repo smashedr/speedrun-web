@@ -1,0 +1,16 @@
+[Unit]
+Description=django-twitch
+After=network.target
+
+[Service]
+PIDFile=/var/run/django-twitch.pid
+User=apache
+Group=apache
+WorkingDirectory=/websites/speedrun-web
+ExecStart=/websites/speedrun-web/venv/bin/gunicorn speedrun_web.wsgi:application --workers 2 -b 127.0.0.1:8000 --log-file /websites/speedrun-web/gunicorn.log
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
