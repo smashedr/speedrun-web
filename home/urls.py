@@ -7,4 +7,5 @@ app_name = 'home'
 urlpatterns = [
     path('', home.home_view, name='index'),
     path('speedruns/', home.speedruns_view, name='speedruns'),
+    path('submit/', home.submit_run, name='submit'),
 ]
