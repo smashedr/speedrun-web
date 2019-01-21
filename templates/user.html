@@ -15,10 +15,10 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Title</th>
                     <th scope="col">Duration</th>
-                    <th scope="col"># of Guesses</th>
+                    <th scope="col">Total Guesses</th>
                     <th scope="col">Date</th>
                 </tr>
                 </thead>
@@ -26,8 +26,8 @@
 
                 {% for run in data.runs %}
                 <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td><a href="#">{{  run.title }}</a></td>
+                    <th scope="row">{{ run.pk }}</th>
+                    <td><a href="{% url 'home:run' data.user.username run.pk %}">{{  run.title }}</a></td>
                     <td>{{  run.duration|fmt_seconds }}</td>
                     <td>{{  run.no_guesses }}</td>
                     <td>{{  run.created_at }}</td>

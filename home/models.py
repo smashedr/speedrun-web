@@ -8,7 +8,8 @@ class Result(models.Model):
     offset = models.IntegerField()
 
     def __str__(self):
-        return '{}: {} (-{})'.format(self.user, self.user, self.offset)
+        offset = '+{}'.format(self.offset) if self.offset > 0 else '{}'.format(self.offset)
+        return '{}: {} ({})'.format(self.user, self.user, offset)
 
 
 class Run(models.Model):
@@ -21,4 +22,4 @@ class Run(models.Model):
     results = models.ManyToManyField(Result, blank=True)
 
     def __str__(self):
-        return '{}: {}'.format(self.user, self.title)
+        return '{}: {}'.format(self.user.username, self.title)

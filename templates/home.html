@@ -8,17 +8,9 @@
 {% block body %}
     <div class="row mt-2">
         <div class="col">
-            <h1>Howdy!</h1>
-            <p class="lead">Welcome home.</p>
-            <p>You need to do the following:</p>
-            <ul>
-                <li>python manage.py createsuperuser</li>
-                <li>python manage.py loaddata site-data.json</li>
-                <li>Create an app at twitch <a href="https://dev.twitch.tv/dashboard" target="_blank">developer site</a>.</li>
-                <li>Login to django <a href="{% url 'admin:index' %}">admin site</a>.</li>
-                <li>Configure the Twitch settings in the Oauth section.</li>
-                <li>Log out then <a href="{% url 'oauth:login' %}" class="text-info">log in with Twitch</a>.</li>
-            </ul>
+            <h1>Speedrun Results and Guesses</h1>
+            <p class="lead">This page will list all users that have submitted runs.</p>
+            <p>Feature coming soon...</p>
         </div>
     </div>
 {% endblock %}

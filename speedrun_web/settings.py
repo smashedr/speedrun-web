@@ -68,6 +68,10 @@ else:
             'PASSWORD': CONFIG['database']['pass'],
             'HOST': CONFIG['database']['host'],
             'PORT': CONFIG['database']['port'],
+            'OPTIONS': {
+                'isolation_level': 'repeatable read',
+                'init_command': "SET sql_mode='STRICT_ALL_TABLES'",
+            },
         }
     }
 

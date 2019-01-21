@@ -3,7 +3,7 @@ import logging
 from pprint import pformat
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from home.models import Run, Result
@@ -13,27 +13,45 @@ config = settings.CONFIG
 
 
 def home_view(request):
-    # View: /
+    #  View: /
     return render(request, 'home.html')
 
 
 def user_view(request, username):
-    # View: /<str:user>/
-    logger.info('username: {}'.format(username))
-    user = User.objects.get(username=username)
-    runs = Run.objects.filter(user=user).order_by('-pk')
-    data = {'runs': runs, 'user': user}
-    return render(request, 'user.html', {'data': data})
+    #  View: /<str:user>/
+    try:
+        logger.info('username: {}'.format(username))
+        user = User.objects.get(username=username)
+        runs = Run.objects.filter(user=user).order_by('-pk')
+        data = {'runs': runs, 'user': user}
+        return render(request, 'user.html', {'data': data})
+    except Exception as error:
+        logger.exception(error)
+        return redirect('home:index')
+
+
+def run_view(request, username, run_pk):
+    #  View: /<str:user>/<int:run>/
+    try:
+        logger.info('username: {}'.format(username))
+        logger.info('run_pk: {}'.format(run_pk))
+        user = User.objects.get(username=username)
+        run = Run.objects.get(pk=run_pk)
+        logger.info(run)
+        data = {'run': run, 'user': user}
+        return render(request, 'run.html', {'data': data})
+    except Exception as error:
+        logger.exception(error)
+        return redirect('home:index')
 
 
 @csrf_exempt
 @require_http_methods(['POST'])
 def submit_run(request):
-    # View: /submit/
+    #  View: /submit/
     try:
         data = json.loads(request.body.decode())
         logger.info(pformat(data))
-
         user, created = User.objects.get_or_create(username=data['user'])
         run = Run(
             user=user,
