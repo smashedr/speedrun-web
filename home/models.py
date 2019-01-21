@@ -1,13 +1,18 @@
+import json
 from django.db import models
 
 
-class Results(models.Model):
-    user = models.CharField(max_length=255)
-    guess = models.IntegerField()
-    offset = models.IntegerField()
+class ResultField(models.TextField):
+    description = "A run result field"
 
-    def __str__(self):
-        return '{}: {} (-{})'.format(self.user, self.user, self.offset)
+    def __init__(self, *args, **kwargs):
+        kwargs['max_length'] = 65535
+        super().__init__(*args, **kwargs)
+
+    def from_db_value(self, value, expression, connection):
+        if value is None:
+            return value
+        return json.loads(value)
 
 
 class Runs(models.Model):
@@ -17,7 +22,7 @@ class Runs(models.Model):
     no_guesses = models.IntegerField()
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    results = models.ManyToManyField(Results)
+    results = ResultField()
 
     def __str__(self):
         return '{}: {}'.format(self.username, self.title)
