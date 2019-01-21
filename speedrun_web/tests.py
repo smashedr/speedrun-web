@@ -8,7 +8,6 @@ class TestViews(TestCase):
     def setUp(self):
         self.views = {
             'home:index': 200,
-            'home:speedruns': 200,
         }
 
     def test_views(self):
