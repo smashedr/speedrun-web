@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+{% block speedrun_active %}active{% endblock %}
+{% block title %}Speedruns{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1>{{ data.user.username }}</h1>
+
+            <h3>Runs</h3>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col"># of Guesses</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for run in data.runs %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{  run.title }}</td>
+                    <td>{{  run.duration }}</td>
+                    <td>{{  run.no_guesses }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

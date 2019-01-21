@@ -1,28 +1,24 @@
-import json
+from django.contrib.auth.models import User
 from django.db import models
 
 
-class ResultField(models.TextField):
-    description = "A run result field"
+class Result(models.Model):
+    user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
+    guess = models.IntegerField()
+    offset = models.IntegerField()
 
-    def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 65535
-        super().__init__(*args, **kwargs)
-
-    def from_db_value(self, value, expression, connection):
-        if value is None:
-            return value
-        return json.loads(value)
+    def __str__(self):
+        return '{}: {} (-{})'.format(self.user, self.user, self.offset)
 
 
-class Runs(models.Model):
+class Run(models.Model):
+    user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
     title = models.CharField(max_length=255)
-    username = models.CharField(max_length=255)
     duration = models.IntegerField()
     no_guesses = models.IntegerField()
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    results = ResultField()
+    results = models.ManyToManyField(Result, blank=True)
 
     def __str__(self):
-        return '{}: {}'.format(self.username, self.title)
+        return '{}: {}'.format(self.user, self.title)
