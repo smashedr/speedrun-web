@@ -1,6 +1,7 @@
 {% extends "main.html" %}
-{% block speedrun_active %}active{% endblock %}
-{% block title %}Speedruns{% endblock %}
+{% block user_active %}active{% endblock %}
+{% block title %}Runs for {{ data.user.username }}{% endblock %}
+{% load home_tags %}
 
 {% block head %}{% endblock %}
 
@@ -18,6 +19,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">Duration</th>
                     <th scope="col"># of Guesses</th>
+                    <th scope="col">Date</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,9 +27,10 @@
                 {% for run in data.runs %}
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{  run.title }}</td>
-                    <td>{{  run.duration }}</td>
+                    <td><a href="#">{{  run.title }}</a></td>
+                    <td>{{  run.duration|fmt_seconds }}</td>
                     <td>{{  run.no_guesses }}</td>
+                    <td>{{  run.created_at }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>

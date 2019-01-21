@@ -21,7 +21,7 @@ def user_view(request, username):
     # View: /<str:user>/
     logger.info('username: {}'.format(username))
     user = User.objects.get(username=username)
-    runs = Run.objects.filter(user=user)
+    runs = Run.objects.filter(user=user).order_by('-pk')
     data = {'runs': runs, 'user': user}
     return render(request, 'user.html', {'data': data})
 
