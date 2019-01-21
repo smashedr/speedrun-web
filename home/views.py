@@ -14,7 +14,13 @@ config = settings.CONFIG
 
 def home_view(request):
     #  View: /
-    return render(request, 'home.html')
+    runs = Run.objects.all()
+    runners = []
+    for run in runs:
+        if run.user not in runners:
+            runners.append(run.user)
+    data = {'runners': runners}
+    return render(request, 'home.html', {'data': data})
 
 
 def user_view(request, username):

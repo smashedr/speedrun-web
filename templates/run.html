@@ -15,21 +15,18 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">User</th>
                     <th scope="col">Guess</th>
                     <th scope="col">Offset</th>
                 </tr>
                 </thead>
                 <tbody>
-
                 {% for guess in data.run.results.all %}
-                <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{  guess.user }}</td>
-                    <td>{{  guess.guess|fmt_seconds }}</td>
-                    <td>{{  guess.offset }}</td>
-                </tr>
+                    <tr>
+                        <td>{{ guess.user }}</td>
+                        <td>{{ guess.guess|fmt_seconds }}</td>
+                        <td>{{ guess.offset }}</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

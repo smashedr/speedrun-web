@@ -9,8 +9,14 @@
     <div class="row mt-2">
         <div class="col">
             <h1>Speedrun Fun</h1>
-            <p class="lead">This page will list all users that have submitted runs.</p>
-            <p>Feature coming soon...</p>
+            <p class="lead">Runners with submitted runs.</p>
+
+            <ul>
+                {% for runner in data.runners %}
+                    <li><a href="{% url 'home:user' runner.username %}">{{ runner.username }}</a></li>
+                {% endfor %}
+            </ul>
+
         </div>
     </div>
 {% endblock %}

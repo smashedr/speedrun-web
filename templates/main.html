@@ -10,18 +10,18 @@
 
 	<!-- Meta -->
 	<meta name="author" content="Shane Rice"/>
-	<meta name="title" content="Site Title"/>
-	<meta name="description" content="Site Description"/>
+	<meta name="title" content="Speedrun Fun"/>
+	<meta name="description" content="Speedrun Results and Estimates"/>
 
 	<meta property="og:author" content="Shane Rice">
-	<meta property="og:title" content="Site Title">
-	<meta property="og:description" content="Site Description">
+	<meta property="og:title" content="Speedrun Fun">
+	<meta property="og:description" content="Speedrun Results and Estimates">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'home:index' %}">
     <meta property="og:image" content="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% static 'images/logo.png' %}">
 	<meta property="og:image:type" content="image/png">
 
-	<title>Site Title - {% block title %}{% endblock %}</title>
+	<title>Speedrun Fun - {% block title %}{% endblock %}</title>
 
 	<!-- Media -->
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
