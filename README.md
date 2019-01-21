@@ -1,6 +1,6 @@
 # Speedrun Fast Go Go
 
-[![build status](https://git.cssnr.com/shane/shane/speedrun-web/badges/master/build.svg)](https://git.cssnr.com/shane/shane/speedrun-web/commits/master) [![coverage report](https://git.cssnr.com/shane/shane/speedrun-web/badges/master/coverage.svg)](https://git.cssnr.com/shane/shane/speedrun-web/commits/master)
+[![build status](https://git.cssnr.com/shane/speedrun-web/badges/master/build.svg)](https://git.cssnr.com/shane/speedrun-web/commits/master) [![coverage report](https://git.cssnr.com/shane/speedrun-web/badges/master/coverage.svg)](https://git.cssnr.com/shane/speedrun-web/commits/master)
 
 This is a basic Django Framework for a Twitch that goes fast...
 
@@ -24,7 +24,7 @@ Twitch Oauth managed from Django admin.
 To deploy this project on the development server:
 
 ```
-git clone https://git.cssnr.com/shane/shane/speedrun-web.git
+git clone https://git.cssnr.com/shane/speedrun-web.git
 cd shane/speedrun-web
 pyvenv venv
 source venv/bin/activate
@@ -43,8 +43,8 @@ python manage.py runserver 0.0.0.0:8000
 To clone a clean copy of this project int your repository:
 
 ```
-git clone https://git.cssnr.com/shane/shane/speedrun-web.git
-cd shane/speedrun-web
+git clone https://git.cssnr.com/shane/speedrun-web.git
+cd django-twitch-basic
 rm -rf .git
 git init
 git remote add origin https://github.com/your-org/your-repo.git
