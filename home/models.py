@@ -8,7 +8,7 @@ class Result(models.Model):
     offset = models.IntegerField()
 
     def __str__(self):
-        offset = '+{}'.format(self.offset) if self.offset > 0 else '{}'.format(self.offset)
+        offset = '+{}'.format(self.offset) if self.offset > 0 else self.offset
         return '{}: {} ({})'.format(self.user, self.user, offset)
 
 
