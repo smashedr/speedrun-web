@@ -11,11 +11,10 @@
             <h1>Speedrun Fun</h1>
             <p class="lead">Runners with submitted runs.</p>
 
-            <ul>
-                {% for runner in data.runners %}
-                    <li><a href="{% url 'home:user' runner.username %}">{{ runner.username }}</a></li>
-                {% endfor %}
-            </ul>
+            {% for runner in data.runners %}
+                <h4><i class="fas fa-caret-right"></i>
+                    <a href="{% url 'home:runner' runner.username %}">{{ runner.username }}</a></h4>
+            {% endfor %}
 
         </div>
     </div>

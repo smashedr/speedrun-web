@@ -1,6 +1,6 @@
 {% extends "main.html" %}
 {% block user_active %}active{% endblock %}
-{% block title %}Run {{ data.run.title}} for {{ data.user.username }}{% endblock %}
+{% block title %}Run {{ data.run.title}} by {{ data.user.username }}{% endblock %}
 {% load home_tags %}
 
 {% block head %}{% endblock %}
@@ -8,9 +8,9 @@
 {% block body %}
     <div class="row">
         <div class="col">
-            <h1>{{ data.user.username }}</h1>
+            <h1>{{ data.run.title }}</h1>
 
-            <h3>{{ data.run.title}}</h3>
+            <h3>Runner <a href="{% url 'home:runner' data.user.username %}">{{ data.user.username }}</a></h3>
 
             <table class="table table-hover">
                 <thead>
@@ -23,7 +23,7 @@
                 <tbody>
                 {% for guess in data.results %}
                     <tr>
-                        <td>{{ guess.user }}</td>
+                        <td><a href="{% url 'home:user' guess.user %}">{{ guess.user }}</a></td>
                         <td>{{ guess.guess|fmt_seconds }}</td>
                         <td>{{ guess.offset }}</td>
                     </tr>

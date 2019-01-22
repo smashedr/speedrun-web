@@ -6,6 +6,7 @@ class Run(models.Model):
     user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
     title = models.CharField(max_length=255)
     duration = models.IntegerField()
+    closest_offset = models.IntegerField()
     no_guesses = models.IntegerField()
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)

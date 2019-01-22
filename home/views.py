@@ -23,21 +23,21 @@ def home_view(request):
     return render(request, 'home.html', {'data': data})
 
 
-def user_view(request, username):
-    #  View: /<str:user>/
+def runner_view(request, username):
+    #  View: /<str:username>/
     try:
         logger.debug('username: {}'.format(username))
         user = User.objects.get(username=username)
         runs = Run.objects.filter(user=user).order_by('-pk')
         data = {'runs': runs, 'user': user}
-        return render(request, 'user.html', {'data': data})
+        return render(request, 'runner.html', {'data': data})
     except Exception as error:
         logger.exception(error)
         return redirect('home:index')
 
 
 def run_view(request, username, run_pk):
-    #  View: /<str:user>/<int:run>/
+    #  View: /<str:username>/<int:run_pk>/
     try:
         logger.debug('username: {}'.format(username))
         logger.debug('run_pk: {}'.format(run_pk))
@@ -48,6 +48,20 @@ def run_view(request, username, run_pk):
         logger.debug(results)
         data = {'run': run, 'results': results, 'user': user}
         return render(request, 'run.html', {'data': data})
+    except Exception as error:
+        logger.exception(error)
+        return redirect('home:index')
+
+
+def user_results(request, username):
+    #  View: /results/<str:username>/
+    try:
+        logger.debug('username: {}'.format(username))
+        user = User.objects.get(username=username)
+        results = Result.objects.filter(user=user)
+        logger.debug(results)
+        data = {'results': results, 'user': user}
+        return render(request, 'user.html', {'data': data})
     except Exception as error:
         logger.exception(error)
         return redirect('home:index')
@@ -65,6 +79,7 @@ def submit_run(request):
             user=user,
             title=data['title'],
             duration=data['duration'],
+            closest_offset=data['closest_offset'],
             no_guesses=data['no_guesses'],
         )
         run.save()
