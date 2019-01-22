@@ -26,7 +26,7 @@ def home_view(request):
 def user_view(request, username):
     #  View: /<str:user>/
     try:
-        logger.info('username: {}'.format(username))
+        logger.debug('username: {}'.format(username))
         user = User.objects.get(username=username)
         runs = Run.objects.filter(user=user).order_by('-pk')
         data = {'runs': runs, 'user': user}
@@ -39,12 +39,14 @@ def user_view(request, username):
 def run_view(request, username, run_pk):
     #  View: /<str:user>/<int:run>/
     try:
-        logger.info('username: {}'.format(username))
-        logger.info('run_pk: {}'.format(run_pk))
+        logger.debug('username: {}'.format(username))
+        logger.debug('run_pk: {}'.format(run_pk))
         user = User.objects.get(username=username)
         run = Run.objects.get(pk=run_pk)
-        logger.info(run)
-        data = {'run': run, 'user': user}
+        logger.debug(run)
+        results = Result.objects.filter(run=run)
+        logger.debug(results)
+        data = {'run': run, 'results': results, 'user': user}
         return render(request, 'run.html', {'data': data})
     except Exception as error:
         logger.exception(error)
@@ -57,7 +59,7 @@ def submit_run(request):
     #  View: /submit/
     try:
         data = json.loads(request.body.decode())
-        logger.info(pformat(data))
+        logger.debug(pformat(data))
         user, created = User.objects.get_or_create(username=data['user'])
         run = Run(
             user=user,
@@ -73,9 +75,9 @@ def submit_run(request):
                 user=user,
                 guess=guess['guess'],
                 offset=guess['offset'],
+                run=run,
             )
             result.save()
-            run.results.add(result)
 
         return HttpResponse()
 

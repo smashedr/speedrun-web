@@ -21,7 +21,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for guess in data.run.results.all %}
+                {% for guess in data.results %}
                     <tr>
                         <td>{{ guess.user }}</td>
                         <td>{{ guess.guess|fmt_seconds }}</td>
