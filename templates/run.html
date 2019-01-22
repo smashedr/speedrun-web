@@ -10,7 +10,42 @@
         <div class="col">
             <h1>{{ data.run.title }}</h1>
 
-            <h3>Runner <a href="{% url 'home:runner' data.user.username %}">{{ data.user.username }}</a></h3>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th scope="row">Runner</th>
+                    <td><a href="{% url 'home:runner' data.user.username %}">{{ data.user.username }}</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">Run Date</th>
+                    <td>{{ data.run.created_at }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Run Duration</th>
+                    <td>{{ data.run.duration|fmt_seconds }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Winners</th>
+                    <td>
+                    {% if data.run.get_winners %}
+                        {{ data.run.get_winners|length }} -
+                            {% for winner in data.run.get_winners %}
+                                <a href="{% url 'home:user' winner.user.username %}">{{ winner.user.username }}</a> {% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+
+                    {% else %}
+                        No Winners
+                    {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Total Guesses</th>
+                    <td>{{ data.run.no_guesses }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h4>User Guesses</h4>
 
             <table class="table table-hover">
                 <thead>
@@ -25,7 +60,7 @@
                     <tr>
                         <td><a href="{% url 'home:user' guess.user %}">{{ guess.user }}</a></td>
                         <td>{{ guess.guess|fmt_seconds }}</td>
-                        <td>{{ guess.offset }}</td>
+                        <td>{{ guess.offset|fmt_offset }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

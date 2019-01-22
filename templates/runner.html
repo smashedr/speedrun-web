@@ -19,6 +19,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">Duration</th>
                     <th scope="col">Total Guesses</th>
+                    <th scope="col">Winners</th>
                     <th scope="col">Date</th>
                 </tr>
                 </thead>
@@ -30,6 +31,7 @@
                     <td><a href="{% url 'home:run' data.user.username run.pk %}">{{  run.title }}</a></td>
                     <td>{{  run.duration|fmt_seconds }}</td>
                     <td>{{  run.no_guesses }}</td>
+                    <td>{{  run.get_winners|length }}</td>
                     <td>{{  run.created_at }}</td>
                 </tr>
                 {% endfor %}

@@ -12,6 +12,8 @@
 
             <h3>by {{ data.user.username }}</h3>
 
+            <p class="lead">Total Wins: {{ data.user|get_result_wins|length }}</p>
+
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -19,7 +21,8 @@
                     <th scope="col">Title</th>
                     <th scope="col">Runner</th>
                     <th scope="col">Duration</th>
-                    <th scope="col">Total Guesses</th>
+                    <th scope="col">Guess</th>
+                    <th scope="col">Offset</th>
                     <th scope="col">Date</th>
                 </tr>
                 </thead>
@@ -31,7 +34,8 @@
                     <td><a href="{% url 'home:run' data.user.username result.run.pk %}">{{ result.run.title }}</a></td>
                     <td><a href="{% url 'home:runner' result.run.user.username %}">{{ result.run.user.username }}</a></td>
                     <td>{{ result.run.duration|fmt_seconds }}</td>
-                    <td>{{ result.run.no_guesses }}</td>
+                    <td>{{ result.guess|fmt_seconds }}</td>
+                    <td>{{ result.offset|fmt_offset }}</td>
                     <td>{{ result.run.created_at }}</td>
                 </tr>
                 {% endfor %}

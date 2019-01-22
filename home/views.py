@@ -28,7 +28,7 @@ def runner_view(request, username):
     try:
         logger.debug('username: {}'.format(username))
         user = User.objects.get(username=username)
-        runs = Run.objects.filter(user=user).order_by('-pk')
+        runs = Run.objects.get_runs(user)
         data = {'runs': runs, 'user': user}
         return render(request, 'runner.html', {'data': data})
     except Exception as error:
@@ -43,9 +43,7 @@ def run_view(request, username, run_pk):
         logger.debug('run_pk: {}'.format(run_pk))
         user = User.objects.get(username=username)
         run = Run.objects.get(pk=run_pk)
-        logger.debug(run)
         results = Result.objects.filter(run=run)
-        logger.debug(results)
         data = {'run': run, 'results': results, 'user': user}
         return render(request, 'run.html', {'data': data})
     except Exception as error:
@@ -58,8 +56,7 @@ def user_results(request, username):
     try:
         logger.debug('username: {}'.format(username))
         user = User.objects.get(username=username)
-        results = Result.objects.filter(user=user)
-        logger.debug(results)
+        results = Result.objects.filter(user=user).order_by('-pk')
         data = {'results': results, 'user': user}
         return render(request, 'user.html', {'data': data})
     except Exception as error:
