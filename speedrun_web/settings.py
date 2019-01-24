@@ -17,6 +17,7 @@ MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 TEMPLATES_DIRS = [os.path.join(BASE_DIR, 'templates')]
+SITE_URL = CONFIG['django']['site_url']
 
 ALLOWED_HOSTS = CONFIG['django']['allowed_hosts'].split(' ')
 DEBUG = strtobool(CONFIG['django']['debug'])

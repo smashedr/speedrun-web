@@ -12,7 +12,13 @@
 
             <h3>by {{ data.user.username }}</h3>
 
-            <p class="lead">Total Wins: {{ data.user|get_result_wins|length }}</p>
+        {% if data.runner %}
+            <a href="{% url 'home:user' data.user.username %}" role="button" class="btn btn-sm btn-outline-primary my-1">
+                Filtered by <strong>{{ data.runner }}</strong>. Click here to remove the filter.</a>
+        {% endif %}
+
+            {% get_result_wins data.user data.runner as wins %}
+            <p class="lead">Total Wins: {{ wins|length }}</p>
 
             <table class="table table-hover">
                 <thead>
@@ -31,8 +37,10 @@
                 {% for result in data.results %}
                 <tr>
                     <th scope="row">{{ result.run.pk }}</th>
-                    <td><a href="{% url 'home:run' data.user.username result.run.pk %}">{{ result.run.title }}</a></td>
-                    <td><a href="{% url 'home:runner' result.run.user.username %}">{{ result.run.user.username }}</a></td>
+                    <td><a href="{% url 'home:run' data.user.username result.run.pk %}">
+                        {{ result.run.title }}</a></td>
+                    <td><a href="{% url 'home:runner' result.run.user.username %}">
+                        {{ result.run.user.username }}</a></td>
                     <td>{{ result.run.duration|fmt_seconds }}</td>
                     <td>{{ result.guess|fmt_seconds }}</td>
                     <td>{{ result.offset|fmt_offset }}</td>
