@@ -58,7 +58,8 @@
                 <tbody>
                 {% for guess in data.results %}
                     <tr>
-                        <td><a href="{% url 'home:user' guess.user %}">{{ guess.user }}</a></td>
+                        <td><a href="{% url 'home:user_runner' guess.user data.user.username %}">
+                            {{ guess.user }}</a></td>
                         <td>{{ guess.guess|fmt_seconds }}</td>
                         <td>{{ guess.offset|fmt_offset }}</td>
                     </tr>

@@ -3,6 +3,7 @@ import logging
 from pprint import pformat
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -51,13 +52,17 @@ def run_view(request, username, run_pk):
         return redirect('home:index')
 
 
-def user_results(request, username):
+def user_results(request, username, runner=None):
     #  View: /results/<str:username>/
     try:
         logger.debug('username: {}'.format(username))
         user = User.objects.get(username=username)
-        results = Result.objects.filter(user=user).order_by('-pk')
-        data = {'results': results, 'user': user}
+        if runner:
+            runner_user = User.objects.get(username=runner)
+            results = Result.objects.filter(user=user, run__user=runner_user).order_by('-pk')
+        else:
+            results = Result.objects.filter(user=user).order_by('-pk')
+        data = {'results': results, 'user': user, 'runner': runner}
         return render(request, 'user.html', {'data': data})
     except Exception as error:
         logger.exception(error)
@@ -91,8 +96,10 @@ def submit_run(request):
             )
             result.save()
 
-        return HttpResponse()
+        data = {'url': run.get_url()}
+        return JsonResponse(data)
 
     except Exception as error:
         logger.exception(error)
-        return HttpResponse(status=400)
+        data = {'error': error}
+        return JsonResponse(data, status=400)
